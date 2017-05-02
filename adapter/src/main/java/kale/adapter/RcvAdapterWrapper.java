@@ -82,7 +82,7 @@ public class RcvAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             @Override
             public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-                // FIXME: 2015/11/23 还没支持"多个"item的转移的操作 
+                // FIXME: 2015/11/23 还没支持"多个"item的转移的操作
             }
         });
         this.layoutManager = layoutManager;
@@ -242,7 +242,9 @@ public class RcvAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void setFullSpan(@Nullable View view, RecyclerView.LayoutManager layoutManager) {
         if (view != null) {
-            final int itemHeight = view.getLayoutParams() != null ?
+            int itemWidth = view.getLayoutParams() != null ?
+                view.getLayoutParams().height : RecyclerView.LayoutParams.WRAP_CONTENT;
+            int itemHeight = view.getLayoutParams() != null ?
                     view.getLayoutParams().height : RecyclerView.LayoutParams.WRAP_CONTENT;
 
             if (layoutManager instanceof StaggeredGridLayoutManager) {
@@ -251,10 +253,17 @@ public class RcvAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
                 layoutParams.setFullSpan(true);
                 view.setLayoutParams(layoutParams);
-            } else if (layoutManager instanceof GridLayoutManager
-                    || layoutManager instanceof LinearLayoutManager) {
-                view.setLayoutParams(new RecyclerView.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
+            //1. GridLayoutManager extend LinearLayoutManager ,不必要的类型判断
+            //2. 当布局是横向滚动时，应该时 height 设为MatchParent
+            //} else if (layoutManager instanceof GridLayoutManager
+            //        || layoutManager instanceof LinearLayoutManager) {
+            } else if (layoutManager instanceof LinearLayoutManager) {
+                if (((LinearLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.VERTICAL) {
+                    itemWidth = ViewGroup.LayoutParams.MATCH_PARENT;
+                } else {
+                    itemHeight = ViewGroup.LayoutParams.MATCH_PARENT;
+                }
+                view.setLayoutParams(new RecyclerView.LayoutParams(itemWidth, itemHeight));
             }
             notifyDataSetChanged();
         }

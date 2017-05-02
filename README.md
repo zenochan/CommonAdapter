@@ -22,3 +22,13 @@ dependencies{
 #### SectionedRcvAdapter
 
 > Section 分组显示适配
+
+#### CommonMDRcvAdapter
+
+> 适配 [material-dialogs](https://github.com/afollestad/material-dialogs)
+
+## CHANGE LOG
+
+#### 1.0.1
+
+- 添加 `CommonMDRcvAdapter`
