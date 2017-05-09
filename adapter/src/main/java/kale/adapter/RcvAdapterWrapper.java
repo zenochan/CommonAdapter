@@ -245,18 +245,18 @@ public class RcvAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHol
             int itemWidth = view.getLayoutParams() != null ?
                 view.getLayoutParams().height : RecyclerView.LayoutParams.WRAP_CONTENT;
             int itemHeight = view.getLayoutParams() != null ?
-                    view.getLayoutParams().height : RecyclerView.LayoutParams.WRAP_CONTENT;
+                view.getLayoutParams().height : RecyclerView.LayoutParams.WRAP_CONTENT;
 
             if (layoutManager instanceof StaggeredGridLayoutManager) {
+                if (((StaggeredGridLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.VERTICAL) {
+                    itemWidth = ViewGroup.LayoutParams.MATCH_PARENT;
+                } else {
+                    itemHeight = ViewGroup.LayoutParams.MATCH_PARENT;
+                }
                 StaggeredGridLayoutManager.LayoutParams layoutParams =
-                        new StaggeredGridLayoutManager.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+                    new StaggeredGridLayoutManager.LayoutParams(itemWidth, itemHeight);
                 layoutParams.setFullSpan(true);
                 view.setLayoutParams(layoutParams);
-            //1. GridLayoutManager extend LinearLayoutManager ,不必要的类型判断
-            //2. 当布局是横向滚动时，应该时 height 设为MatchParent
-            //} else if (layoutManager instanceof GridLayoutManager
-            //        || layoutManager instanceof LinearLayoutManager) {
             } else if (layoutManager instanceof LinearLayoutManager) {
                 if (((LinearLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.VERTICAL) {
                     itemWidth = ViewGroup.LayoutParams.MATCH_PARENT;
