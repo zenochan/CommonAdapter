@@ -51,7 +51,6 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
 
   private View headerView;
 
-
   private LoadAdapterWrapper(@NonNull RecyclerView.Adapter wrappedAdapter, @NonNull RecyclerView.LayoutManager layoutManager)
   {
     this.layoutManager = layoutManager;
@@ -123,22 +122,33 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    RecyclerView.ViewHolder holder;
     switch (viewType) {
       case TYPE_HEADER:
-        holder = new RecyclerView.ViewHolder(headerView) {};
+        return new RecyclerView.ViewHolder(headerView) {};
       case TYPE_FOOTER_LOADING:
       case TYPE_FOOTER_EMPTY:
       case TYPE_FOOTER_PULL_TO_LOAD:
       case TYPE_FOOTER_LOAD_MORE:
       case TYPE_FOOTER_LOAD_ALL:
-        holder = new CommonRcvAdapter.RcvAdapterItem(parent.getContext(), parent, createItem(viewType));
-      default:
-        holder = wrappedAdapter.onCreateViewHolder(parent, viewType);
-    }
+        RecyclerView.ViewHolder holder = new CommonRcvAdapter.RcvAdapterItem(parent.getContext(), parent, createItem(viewType));
+        View view = holder.itemView;
+        final int itemHeight = view.getLayoutParams() != null
+            ? view.getLayoutParams().height
+            : ViewGroup.LayoutParams.WRAP_CONTENT;
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+          StaggeredGridLayoutManager.LayoutParams layoutParams = new StaggeredGridLayoutManager.LayoutParams(
+              ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+          layoutParams.setFullSpan(true);
+          view.setLayoutParams(layoutParams);
+        } else if (layoutManager instanceof GridLayoutManager) {
+          view.setLayoutParams(new ViewGroup.LayoutParams(
+              ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
-    setFullSpan(holder.itemView, layoutManager);
-    return holder;
+        }
+        return holder;
+      default:
+        return wrappedAdapter.onCreateViewHolder(parent, viewType);
+    }
   }
 
   public AdapterItem createItem(final int type)
@@ -551,37 +561,35 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
       adapterWrapper.onLoadMore(onLoadMoreListener);
 
 
-      adapterWrapper.setItemCreator(new ItemCreator<Integer>()
-      {
-        @Override public AdapterItem<Integer> create(Integer type)
-        {
-          AdapterItem item = null;
-          switch (type) {
-            case TYPE_FOOTER_LOADING:
-              item = loadingItem;
-              break;
-            case TYPE_FOOTER_EMPTY:
-              item = emptyItem;
-              break;
-            case TYPE_FOOTER_PULL_TO_LOAD:
-              item = pullToLoadItem;
-              break;
-            case TYPE_FOOTER_LOAD_MORE:
-              item = loadMoreItem;
-              break;
-            case TYPE_FOOTER_LOAD_ALL:
-              item = loadAllItem;
-              break;
-            case TYPE_FOOTER_LOAD_FAILED:
-              item = loadFailedItem;
-              break;
-          }
-          return item;
-
-
-        }
-      });
-
+      adapterWrapper.setItemCreator(
+          new ItemCreator<Integer>()
+          {
+            @Override public AdapterItem<Integer> create(Integer type)
+            {
+              AdapterItem item = null;
+              switch (type) {
+                case TYPE_FOOTER_LOADING:
+                  item = loadingItem;
+                  break;
+                case TYPE_FOOTER_EMPTY:
+                  item = emptyItem;
+                  break;
+                case TYPE_FOOTER_PULL_TO_LOAD:
+                  item = pullToLoadItem;
+                  break;
+                case TYPE_FOOTER_LOAD_MORE:
+                  item = loadMoreItem;
+                  break;
+                case TYPE_FOOTER_LOAD_ALL:
+                  item = loadAllItem;
+                  break;
+                case TYPE_FOOTER_LOAD_FAILED:
+                  item = loadFailedItem;
+                  break;
+              }
+              return item;
+            }
+          });
 
       return adapterWrapper;
     }

@@ -5,10 +5,10 @@ mavenConf {
 
   groupId "name.zeno"
   artifactId "common-adapter"
-  version "1.0.2"
+  version "1.0.3-SNAPSHOT"
 
   repositoryUrl "file:///Users/zenochan/.m2/repository"
-  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
+//  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
 }
 confMaven()
 
@@ -28,6 +28,12 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+//
+//  compileOptions {
+//    encoding "UTF-8"
+//    sourceCompatibility JavaVersion.VERSION_1_8
+//    targetCompatibility JavaVersion.VERSION_1_8
+//  }
 }
 
 dependencies {
