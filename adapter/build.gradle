@@ -1,15 +1,25 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'maven'
+apply from: 'http://maven.mjtown.cn/maven.gradle'
+mavenConf {
+  projectName "CommonAdapter"
+
+  groupId "name.zeno"
+  artifactId "common-adapter"
+  version "1.0.2"
+
+  repositoryUrl "file:///Users/zenochan/.m2/repository"
+  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
+}
+confMaven()
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion '25.0.3'
+  compileSdkVersion 26
+  buildToolsVersion '26.0.1'
 
   defaultConfig {
     minSdkVersion 15
-    targetSdkVersion 25
-    versionName "1.0.1"
+    targetSdkVersion 26
+    versionName mavenConf.version
   }
 
   buildTypes {
@@ -18,81 +28,12 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-
-  compileOptions {
-    encoding "UTF-8"
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
 }
 
 dependencies {
-  provided 'com.android.databinding:baseLibrary:1.0'
-  provided 'com.android.support:recyclerview-v7:25.3.1'
-  provided "org.projectlombok:lombok:1.12.6"
+  provided "com.android.databinding:baseLibrary:2.3.3"
+  provided "com.android.support:recyclerview-v7:26.1.0"
   provided "com.afollestad.material-dialogs:core:0.9.4.4"
 
   testCompile 'junit:junit:4.12'
-}
-
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      repository(url: "file:///Users/zenochan/.m2/repository")
-
-      pom.groupId = "name.zeno"
-      pom.artifactId = 'common-adapter'
-      pom.version = android.defaultConfig.versionName
-
-      pom.project {
-        name 'Common Adapter'
-        packaging 'aar'
-        description '扩展  tianzhijiexian/CommonAdapter'
-        url 'https://github.com/zenochan/CommonAdapter'
-
-        scm {
-          url 'https://github.com/zenochan/CommonAdapter'
-          connection 'https://github.com/zenochan/CommonAdapter'
-          developerConnection 'https://github.com/zenochan/CommonAdapter'
-        }
-
-        licenses {
-          license {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-            distribution 'Apache-2.0'
-          }
-        }
-
-        developers {
-          developer {
-            id 'zenochan'
-            name 'Zeno Chan'
-            email 'zenochan@qq.com'
-          }
-        }
-      }
-    }
-  }
-}
-
-task sourcesJar(type: Jar) {
-  from android.sourceSets.main.java.srcDirs
-  classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-  source = android.sourceSets.main.java.srcDirs
-  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-  failOnError false
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from javadoc.destinationDir
-}
-
-artifacts {
-  archives javadocJar
-  archives sourcesJar
 }

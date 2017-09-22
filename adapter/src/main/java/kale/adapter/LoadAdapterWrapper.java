@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import kale.adapter.item.AdapterItem;
 import kale.adapter.item.DefalutEmptyItem;
 import kale.adapter.item.ItemCreator;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 使用{@link Builder}创建
@@ -41,21 +39,18 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
   private boolean onGettingData = false;
   private Action0 onLoadMore;
 
-  @Getter
   private RecyclerView.LayoutManager layoutManager;
   private RecyclerView.Adapter       wrappedAdapter;
 
   private int currCount;
 
 
-  @Getter @Setter
   private int pageSize = 20;
 
-  @Setter
   private ItemCreator<Integer> itemCreator;
 
-  @Getter
   private View headerView;
+
 
   private LoadAdapterWrapper(@NonNull RecyclerView.Adapter wrappedAdapter, @NonNull RecyclerView.LayoutManager layoutManager)
   {
@@ -65,6 +60,36 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
       setSpanSizeLookup(this, (GridLayoutManager) this.layoutManager); // 设置头部和尾部都是跨列的
     }
     observeData();
+  }
+
+  public RecyclerView.LayoutManager getLayoutManager()
+  {
+    return layoutManager;
+  }
+
+  public int getPageSize()
+  {
+    return pageSize;
+  }
+
+  public void setPageSize(int pageSize)
+  {
+    this.pageSize = pageSize;
+  }
+
+  public ItemCreator<Integer> getItemCreator()
+  {
+    return itemCreator;
+  }
+
+  public void setItemCreator(ItemCreator<Integer> itemCreator)
+  {
+    this.itemCreator = itemCreator;
+  }
+
+  public View getHeaderView()
+  {
+    return headerView;
   }
 
   public void setHeaderView(@NonNull View headerView)
@@ -98,21 +123,25 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
+    RecyclerView.ViewHolder holder;
     switch (viewType) {
       case TYPE_HEADER:
-        return new RecyclerView.ViewHolder(headerView) {};
+        holder = new RecyclerView.ViewHolder(headerView) {};
       case TYPE_FOOTER_LOADING:
       case TYPE_FOOTER_EMPTY:
       case TYPE_FOOTER_PULL_TO_LOAD:
       case TYPE_FOOTER_LOAD_MORE:
       case TYPE_FOOTER_LOAD_ALL:
-        return new CommonRcvAdapter.RcvAdapterItem(parent.getContext(), parent, createItem(viewType));
+        holder = new CommonRcvAdapter.RcvAdapterItem(parent.getContext(), parent, createItem(viewType));
       default:
-        return wrappedAdapter.onCreateViewHolder(parent, viewType);
+        holder = wrappedAdapter.onCreateViewHolder(parent, viewType);
     }
+
+    setFullSpan(holder.itemView, layoutManager);
+    return holder;
   }
 
-  public AdapterItem createItem(int type)
+  public AdapterItem createItem(final int type)
   {
     AdapterItem item = null;
     if (itemCreator != null) {
@@ -390,7 +419,7 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
    */
   private static void setSpanSizeLookup(final RecyclerView.Adapter adapter, final GridLayoutManager layoutManager)
   {
-    GridLayoutManager.SpanSizeLookup originLookUp = layoutManager.getSpanSizeLookup();
+    final GridLayoutManager.SpanSizeLookup originLookUp = layoutManager.getSpanSizeLookup();
     layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup()
     {
       private GridLayoutManager.SpanSizeLookup wrapperedLookup = originLookUp;
@@ -522,30 +551,37 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
       adapterWrapper.onLoadMore(onLoadMoreListener);
 
 
-      adapterWrapper.setItemCreator(type -> {
-        AdapterItem item = null;
-        switch (type) {
-          case TYPE_FOOTER_LOADING:
-            item = loadingItem;
-            break;
-          case TYPE_FOOTER_EMPTY:
-            item = emptyItem;
-            break;
-          case TYPE_FOOTER_PULL_TO_LOAD:
-            item = pullToLoadItem;
-            break;
-          case TYPE_FOOTER_LOAD_MORE:
-            item = loadMoreItem;
-            break;
-          case TYPE_FOOTER_LOAD_ALL:
-            item = loadAllItem;
-            break;
-          case TYPE_FOOTER_LOAD_FAILED:
-            item = loadFailedItem;
-            break;
+      adapterWrapper.setItemCreator(new ItemCreator<Integer>()
+      {
+        @Override public AdapterItem<Integer> create(Integer type)
+        {
+          AdapterItem item = null;
+          switch (type) {
+            case TYPE_FOOTER_LOADING:
+              item = loadingItem;
+              break;
+            case TYPE_FOOTER_EMPTY:
+              item = emptyItem;
+              break;
+            case TYPE_FOOTER_PULL_TO_LOAD:
+              item = pullToLoadItem;
+              break;
+            case TYPE_FOOTER_LOAD_MORE:
+              item = loadMoreItem;
+              break;
+            case TYPE_FOOTER_LOAD_ALL:
+              item = loadAllItem;
+              break;
+            case TYPE_FOOTER_LOAD_FAILED:
+              item = loadFailedItem;
+              break;
+          }
+          return item;
+
+
         }
-        return item;
       });
+
 
       return adapterWrapper;
     }
