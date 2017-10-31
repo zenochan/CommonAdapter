@@ -141,9 +141,7 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
           layoutParams.setFullSpan(true);
           view.setLayoutParams(layoutParams);
         } else if (layoutManager instanceof GridLayoutManager) {
-          view.setLayoutParams(new ViewGroup.LayoutParams(
-              ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
-
+          view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
         }
         return holder;
       default:

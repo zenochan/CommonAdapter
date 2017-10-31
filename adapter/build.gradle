@@ -5,20 +5,20 @@ mavenConf {
 
   groupId "name.zeno"
   artifactId "common-adapter"
-  version "1.0.3-SNAPSHOT"
+  version "1.0.3.1031"
 
-  repositoryUrl "file:///Users/zenochan/.m2/repository"
-//  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
+//  repositoryUrl "file:///Users/zenochan/.m2/repository"
+  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
 }
 confMaven()
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion '26.0.1'
+  compileSdkVersion 27
+  buildToolsVersion '27.0.0'
 
   defaultConfig {
     minSdkVersion 15
-    targetSdkVersion 26
+    targetSdkVersion 27
     versionName mavenConf.version
   }
 
@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
-  provided "com.android.databinding:baseLibrary:2.3.3"
-  provided "com.android.support:recyclerview-v7:26.1.0"
-  provided "com.afollestad.material-dialogs:core:0.9.4.4"
+  testImplementation 'junit:junit:4.12'
 
-  testCompile 'junit:junit:4.12'
+  compileOnly "com.android.databinding:baseLibrary:3.0.0"
+  compileOnly "com.android.support:recyclerview-v7:27.0.0"
+  compileOnly "com.afollestad.material-dialogs:core:0.9.5.0"
 }
