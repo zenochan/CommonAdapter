@@ -35,7 +35,7 @@ class RecyclerViewActivity : AppCompatActivity() {
     mRecyclerView!!.layoutManager = layoutManager
 
     // 放一个默认空数据
-    mRecyclerView!!.adapter = getAdapter(null)
+    mRecyclerView!!.adapter = getAdapter()
 
     // 现在得到数据
     val data = DataManager.loadData(baseContext)
@@ -62,7 +62,7 @@ class RecyclerViewActivity : AppCompatActivity() {
    *
    * 多种类型的type
    */
-  private fun getAdapter(data: List<DemoModel>?): CommonRcvAdapter<DemoModel> {
+  private fun getAdapter(data: List<DemoModel> = ArrayList()): CommonRcvAdapter<DemoModel> {
     return object : CommonRcvAdapter<DemoModel>(data) {
 
       override fun getItemType(demoModel: DemoModel): Any {

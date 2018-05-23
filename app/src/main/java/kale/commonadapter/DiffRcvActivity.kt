@@ -39,7 +39,7 @@ class DiffRcvActivity : AppCompatActivity() {
     recyclerView.postDelayed({ adapter.setData(DataManager.loadData(this@DiffRcvActivity, 3)) }, 1000)
   }
 
-  abstract class DiffRcvAdapter<T> internal constructor(data: List<T>?) : CommonRcvAdapter<T>(data) {
+  abstract class DiffRcvAdapter<T> internal constructor(data: List<T> = ArrayList()) : CommonRcvAdapter<T>(data) {
 
     override fun setData(data: List<T>) {
       DiffUtil.calculateDiff(object : DiffUtil.Callback() {
