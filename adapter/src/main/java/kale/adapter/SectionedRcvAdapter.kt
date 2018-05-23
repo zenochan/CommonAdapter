@@ -27,7 +27,9 @@ import kale.adapter.item.SectionItem
  * @param <I> Item
  * @author 陈治谋 (wechat: puppet2436)
 </I></S> */
-abstract class SectionedRcvAdapter<S : Section<I>, I>(data: List<S>?) : CommonRcvAdapter<S>(data), ISectionedRcvAdapter {
+abstract class SectionedRcvAdapter<S : Section<I>, I : Any>
+@JvmOverloads constructor(data: List<S> = ArrayList())
+  : CommonRcvAdapter<S>(data), ISectionedRcvAdapter {
 
   //{{sectionForPosition,positionWithinSection,type},{},...}
   private var itemsInfo: Array<IntArray>? = null
@@ -36,8 +38,6 @@ abstract class SectionedRcvAdapter<S : Section<I>, I>(data: List<S>?) : CommonRc
   private val TYPE_FOR_POSITION = 2
 
   private var count = 0
-
-  constructor() : this(null) {}
 
   init {
     registerAdapterDataObserver(SectionDataObserver())
@@ -88,7 +88,7 @@ abstract class SectionedRcvAdapter<S : Section<I>, I>(data: List<S>?) : CommonRc
     val item = holder.item
     if (isSectionFooterPosition(position) || isSectionHeaderPosition(position)) {
       val section = getSection(itemInfo[SECTION_POSITION])
-      item.handleData(section, position)
+      item.handleData(section as Any, position)
     } else {
       val i = getSection(itemInfo[SECTION_POSITION])!!.getItem(itemInfo[ITEM_POSITION])
       item.handleData(i, position)
@@ -96,12 +96,12 @@ abstract class SectionedRcvAdapter<S : Section<I>, I>(data: List<S>?) : CommonRc
     }
   }
 
-  override fun createItem(type: Any): AdapterItem<*> {
+  override fun createItem(type: Any): AdapterItem<Any> {
     val sectionType = type as Int and 0xff
     return createSectionItem(sectionType, type and 0xff00)
   }
 
-  abstract fun createSectionItem(sectionType: Int, type: Int): AdapterItem<*>
+  abstract fun createSectionItem(sectionType: Int, type: Int): AdapterItem<Any>
 
 
   override fun getItemViewType(position: Int): Int {
@@ -255,7 +255,7 @@ abstract class SectionedRcvAdapter<S : Section<I>, I>(data: List<S>?) : CommonRc
   }
 
   private fun getSection(position: Int): S? {
-    return data.getOrNull(position)
+    return data?.getOrNull(position)
   }
 
   companion object {
