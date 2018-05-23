@@ -13,33 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package kale.adapter;
+package kale.adapter
 
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.GridLayoutManager
 
 /**
  * A SpanSizeLookup to draw section headers or footer spanning the whole width of the RecyclerView
  * when using a GridLayoutManager
  */
-public class SectionedSpanSizeLookup extends GridLayoutManager.SpanSizeLookup
-{
+class SectionedSpanSizeLookup(
+    protected var adapter: SectionedRcvAdapter<*, *>,
+    protected var layoutManager: GridLayoutManager
+) : GridLayoutManager.SpanSizeLookup() {
 
-  protected SectionedRcvAdapter adapter;
-  protected GridLayoutManager   layoutManager;
-
-  public SectionedSpanSizeLookup(SectionedRcvAdapter adapter, GridLayoutManager layoutManager)
-  {
-    this.adapter = adapter;
-    this.layoutManager = layoutManager;
-  }
-
-  @Override
-  public int getSpanSize(int position)
-  {
-    if (adapter.isSectionHeaderPosition(position) || adapter.isSectionFooterPosition(position)) {
-      return layoutManager.getSpanCount();
+  override fun getSpanSize(position: Int): Int {
+    return if (adapter.isSectionHeaderPosition(position) || adapter.isSectionFooterPosition(position)) {
+      layoutManager.spanCount
     } else {
-      return adapter.getItemSpan(position);
+      adapter.getItemSpan(position)
     }
   }
 }

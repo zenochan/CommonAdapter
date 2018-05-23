@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply from: 'http://maven.mjtown.cn/maven.gradle'
 mavenConf {
   projectName "CommonAdapter"
 
   groupId "name.zeno"
-  artifactId "common-adapter"
+  artifactId "common-adapter-kt"
   version "1.0.3.1031"
 
 //  repositoryUrl "file:///Users/zenochan/.m2/repository"
@@ -14,7 +15,7 @@ confMaven()
 
 android {
   compileSdkVersion 27
-  buildToolsVersion '27.0.0'
+  buildToolsVersion '27.0.3'
 
   defaultConfig {
     minSdkVersion 15
@@ -28,18 +29,18 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-//
-//  compileOptions {
-//    encoding "UTF-8"
-//    sourceCompatibility JavaVersion.VERSION_1_8
-//    targetCompatibility JavaVersion.VERSION_1_8
-//  }
 }
 
 dependencies {
   testImplementation 'junit:junit:4.12'
 
-  compileOnly "com.android.databinding:baseLibrary:3.0.0"
-  compileOnly "com.android.support:recyclerview-v7:27.0.0"
-  compileOnly "com.afollestad.material-dialogs:core:0.9.5.0"
+  compileOnly "com.android.databinding:baseLibrary:3.1.2"
+  compileOnly "com.android.support:recyclerview-v7:27.1.1"
+  compileOnly("com.afollestad.material-dialogs:core:0.9.5.0") {
+    exclude(group: 'com.android.support')
+  }
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+  mavenCentral()
 }

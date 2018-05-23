@@ -34,7 +34,7 @@ public abstract class CommonRcvAdapter<T> extends RecyclerView.Adapter<CommonRcv
       data = new ArrayList<>();
     }
 
-    if (DataBindingJudgement.SUPPORT_DATABINDING && data instanceof ObservableList) {
+    if (DataBindingJudgement.INSTANCE.getSUPPORT_DATABINDING() && data instanceof ObservableList) {
       ((ObservableList<T>) data).addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<T>>()
       {
         @Override
