@@ -5,11 +5,11 @@ mavenConf {
   projectName "CommonAdapter"
 
   groupId "name.zeno"
-  artifactId "common-adapter-kt"
-  version "1.0.3.1031"
+  artifactId "kt-common-adapter"
+  version "1.0.3.201806051-SNAPSHOT"
 
-//  repositoryUrl "file:///Users/zenochan/.m2/repository"
-  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
+  repositoryUrl "file:///Users/zenochan/.m2/repository"
+//  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
 }
 confMaven()
 

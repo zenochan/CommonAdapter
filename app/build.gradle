@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -32,7 +33,14 @@ dependencies {
   implementation 'com.android.support:recyclerview-v7:27.1.1'
   implementation project(':adapter')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "org.jetbrains.anko:anko:$anko_version"
 }
 repositories {
   mavenCentral()
+}
+
+kotlin {
+  experimental {
+    coroutines "enable"
+  }
 }

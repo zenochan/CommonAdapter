@@ -27,9 +27,9 @@ import kale.adapter.item.SectionItem
  * @param <I> Item
  * @author 陈治谋 (wechat: puppet2436)
 </I></S> */
-abstract class SectionedRcvAdapter<S : Section<I>, I : Any>
-@JvmOverloads constructor(data: List<S> = ArrayList())
-  : CommonRcvAdapter<S>(data), ISectionedRcvAdapter {
+abstract class SectionedRcvAdapter<S : Section<out Any>>
+@JvmOverloads constructor(data: List<Section<*>> = ArrayList())
+  : CommonRcvAdapter<Section<*>>(data), ISectionedRcvAdapter {
 
   //{{sectionForPosition,positionWithinSection,type},{},...}
   private var itemsInfo: Array<IntArray>? = null
@@ -43,7 +43,7 @@ abstract class SectionedRcvAdapter<S : Section<I>, I : Any>
     registerAdapterDataObserver(SectionDataObserver())
   }
 
-  override fun setData(data: List<S>) {
+  override fun setData(data: List<Section<*>>) {
     super.setData(data)
     setupIndices()
   }
@@ -71,7 +71,7 @@ abstract class SectionedRcvAdapter<S : Section<I>, I : Any>
       val section = getSection(itemInfo[SECTION_POSITION])
       val item = section?.getItem(itemInfo[ITEM_POSITION])
       if (item != null && item is ISpan) {
-        return (item as ISpan).span
+        return item.span
       }
     }
 
@@ -101,7 +101,16 @@ abstract class SectionedRcvAdapter<S : Section<I>, I : Any>
     return createSectionItem(sectionType, type and 0xff00)
   }
 
-  abstract fun createSectionItem(sectionType: Int, type: Int): AdapterItem<Any>
+  /**
+   * 需要结合两个类型来返回 Item
+   *
+   * @param sectionType [Section.sectionType] scetion 的类型
+   * @param itemType item 类型
+   * - [SectionedRcvAdapter.TYPE_ITEM]  section 的 item
+   * - [SectionedRcvAdapter.TYPE_SECTION_HEADER] section 的 header
+   * - [SectionedRcvAdapter.TYPE_SECTION_HEADER] section 的 footer
+   */
+  abstract fun createSectionItem(sectionType: Int, itemType: Int): AdapterItem<Any>
 
 
   override fun getItemViewType(position: Int): Int {
@@ -255,7 +264,7 @@ abstract class SectionedRcvAdapter<S : Section<I>, I : Any>
   }
 
   private fun getSection(position: Int): S? {
-    return data?.getOrNull(position)
+    return data?.getOrNull(position) as S
   }
 
   companion object {

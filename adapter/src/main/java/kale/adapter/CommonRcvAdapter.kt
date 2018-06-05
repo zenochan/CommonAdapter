@@ -122,7 +122,8 @@ abstract class CommonRcvAdapter<T>(data: List<T> = ArrayList()) : RecyclerView.A
   // 内部用到的viewHold
   ///////////////////////////////////////////////////////////////////////////
 
-  class RcvAdapterItem internal constructor(context: Context, parent: ViewGroup, var item: AdapterItem<Any>) : RecyclerView.ViewHolder(LayoutInflater.from(context).inflate(item.layoutResId, parent, false)) {
+  class RcvAdapterItem internal constructor(context: Context, parent: ViewGroup, var item: AdapterItem<Any>)
+    : RecyclerView.ViewHolder(LayoutInflater.from(context).inflate(item.layoutResId, parent, false)) {
 
     internal var isNew = true // debug中才用到
 

@@ -21,6 +21,7 @@
         <activity android:name=".RecyclerViewActivity" />
         <activity android:name=".HeaderFooterActivity" />
         <activity android:name=".DiffRcvActivity" />
+      <activity android:name=".SectionedActivity"/>
     </application>
 
 </manifest>

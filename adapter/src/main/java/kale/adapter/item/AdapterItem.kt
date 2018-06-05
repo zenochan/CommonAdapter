@@ -3,7 +3,7 @@ package kale.adapter.item
 import android.support.annotation.LayoutRes
 import android.view.View
 
-interface AdapterItem<in T> {
+interface AdapterItem<in T : Any> {
 
   /**
    * @return item布局文件的layoutId

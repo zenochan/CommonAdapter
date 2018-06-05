@@ -22,7 +22,7 @@ import android.support.v7.widget.GridLayoutManager
  * when using a GridLayoutManager
  */
 class SectionedSpanSizeLookup(
-    protected var adapter: SectionedRcvAdapter<*, *>,
+    protected var adapter: SectionedRcvAdapter<*>,
     protected var layoutManager: GridLayoutManager
 ) : GridLayoutManager.SpanSizeLookup() {
 
@@ -30,7 +30,9 @@ class SectionedSpanSizeLookup(
     return if (adapter.isSectionHeaderPosition(position) || adapter.isSectionFooterPosition(position)) {
       layoutManager.spanCount
     } else {
-      adapter.getItemSpan(position)
+      var span = adapter.getItemSpan(position)
+      if (span == -1) span = layoutManager.spanCount
+      span
     }
   }
 }
