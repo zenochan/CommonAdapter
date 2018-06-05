@@ -11,9 +11,9 @@ import kale.adapter.item.Section
  * @author [陈治谋](mailto:zenochan@qq.com)
  * @since 2018/6/4
  */
-class SectionedCardDecoration<T : Any>
+class SectionedCardDecoration
 (
-    val sectionedAdapter: SectionedRcvAdapter<Section<T>>,
+    val sectionedAdapter: SectionedRcvAdapter<Section<Any>>,
     var bgColor: Int = Color.WHITE,
     var radius: Float = 16F,
     var startPosition: Int = 0
@@ -58,7 +58,6 @@ class SectionedCardDecoration<T : Any>
       val currentSpanIndex = sizeLookup.getSpanGroupIndex(position, lm.spanCount)
       if (currentSpanIndex != spanGroupIndex) {
         spanGroupIndex = currentSpanIndex
-        Log.e("", "position -> $position")
 
         val top = view.top.toFloat()
         val bottom = view.bottom.toFloat()

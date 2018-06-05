@@ -2,17 +2,20 @@ package kale.commonadapter.item
 
 
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 
 import kale.adapter.item.AdapterItem
+import kale.adapter.item.Section
+import kale.adapter.item.SectionItem
 import org.jetbrains.anko.backgroundColor
 
 /**
  * @author Jack Tony
  * @date 2015/5/15
  */
-class SimpleTextItem : AdapterItem<String> {
+class SimpleTextItem : SectionItem<String> {
 
   override val layoutResId: Int
     get() = android.R.layout.simple_list_item_1
@@ -30,5 +33,8 @@ class SimpleTextItem : AdapterItem<String> {
     textView.text = "$t pos=$position"
   }
 
+  override fun handleSection(section: Section<String>, position: Int) {
+    Log.e("","hahahaha")
+  }
 }
 

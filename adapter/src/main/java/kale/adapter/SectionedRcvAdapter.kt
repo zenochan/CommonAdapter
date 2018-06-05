@@ -27,7 +27,7 @@ import kale.adapter.item.SectionItem
  * @param <I> Item
  * @author 陈治谋 (wechat: puppet2436)
 </I></S> */
-abstract class SectionedRcvAdapter<S : Section<out Any>>
+abstract class SectionedRcvAdapter<S : Section<Any>>
 @JvmOverloads constructor(data: List<Section<*>> = ArrayList())
   : CommonRcvAdapter<Section<*>>(data), ISectionedRcvAdapter {
 
@@ -87,12 +87,13 @@ abstract class SectionedRcvAdapter<S : Section<out Any>>
 
     val item = holder.item
     if (isSectionFooterPosition(position) || isSectionHeaderPosition(position)) {
-      val section = getSection(itemInfo[SECTION_POSITION])
-      item.handleData(section as Any, position)
+      val sectionPosition = itemInfo[SECTION_POSITION]
+      val section = getSection(sectionPosition)
+      item.handleData(section as Any, sectionPosition)
     } else {
       val i = getSection(itemInfo[SECTION_POSITION])!!.getItem(itemInfo[ITEM_POSITION])
       item.handleData(i, position)
-      (item as? SectionItem<S, Int>)?.handleSection(getSection(itemInfo[SECTION_POSITION])!!, itemInfo[SECTION_POSITION])
+      (item as? SectionItem)?.handleSection(getSection(itemInfo[SECTION_POSITION])!!, itemInfo[SECTION_POSITION])
     }
   }
 

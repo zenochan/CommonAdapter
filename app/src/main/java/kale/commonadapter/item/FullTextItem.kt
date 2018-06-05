@@ -1,20 +1,18 @@
 package kale.commonadapter.item
 
 
-import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 
-import kale.adapter.item.AdapterItem
+import kale.adapter.item.Section
+import kale.adapter.item.SectionItem
 import kale.commonadapter.model.FullString
-import kale.commonadapter.model.FullStringSection
-import org.jetbrains.anko.backgroundColor
 
 /**
  * @author Jack Tony
  * @date 2015/5/15
  */
-class FullTextItem : AdapterItem<FullString> {
+class FullTextItem : SectionItem<FullString> {
 
   override val layoutResId: Int
     get() = android.R.layout.simple_list_item_1
@@ -29,7 +27,11 @@ class FullTextItem : AdapterItem<FullString> {
   }
 
   override fun handleData(t: FullString, position: Int) {
-    textView.text = "整行Item pos=$position"
+    textView.text = "$position"
+  }
+
+  override fun handleSection(section: Section<FullString>, sectionPosition: Int) {
+    textView.text = "$sectionPosition : ${textView.text}"
   }
 }
 

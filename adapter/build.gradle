@@ -1,12 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply from: 'http://maven.mjtown.cn/maven.gradle'
 mavenConf {
   projectName "CommonAdapter"
 
   groupId "name.zeno"
   artifactId "kt-common-adapter"
-  version "1.0.3.201806051-SNAPSHOT"
+  version "1.0.3.201806053-SNAPSHOT"
 
   repositoryUrl "file:///Users/zenochan/.m2/repository"
 //  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
@@ -16,6 +18,10 @@ confMaven()
 android {
   compileSdkVersion 27
   buildToolsVersion '27.0.3'
+
+  dataBinding {
+    enabled true
+  }
 
   defaultConfig {
     minSdkVersion 15

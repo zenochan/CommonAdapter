@@ -8,10 +8,8 @@ import kale.adapter.item.SectionItem
  * @author [陈治谋](mailto:zenochan@qq.com)
  * @since 2018/6/5
  */
-class SpecificHeader : SectionItem<Section<Any>, Any> {
+class SpecificHeader : SectionItem<Any> {
 
-  override fun handleSection(section: Section<Any>, position: Int) {
-  }
 
   override val layoutResId: Int = R.layout.header_section
 
@@ -25,4 +23,6 @@ class SpecificHeader : SectionItem<Section<Any>, Any> {
 
   }
 
+  override fun handleSection(section: Section<Any>, position: Int) {
+  }
 }
