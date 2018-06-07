@@ -8,7 +8,7 @@ mavenConf {
 
   groupId "name.zeno"
   artifactId "kt-common-adapter"
-  version "1.0.3.201806053-SNAPSHOT"
+  version "1.0.3.1806071"
 
   repositoryUrl "file:///Users/zenochan/.m2/repository"
 //  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"

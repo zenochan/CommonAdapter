@@ -9,6 +9,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import kale.adapter.item.AdapterItem;
 import kale.adapter.item.DefalutEmptyItem;
 import kale.adapter.item.ItemCreator;
@@ -158,6 +161,11 @@ public class LoadAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHo
     if (item == null) {
       item = new AdapterItem<Integer>()
       {
+        @Nullable @Override public View layout(@NotNull Context context)
+        {
+          return null;
+        }
+
         @Override public void bindViews(View root) { }
 
         @Override public int getLayoutResId()

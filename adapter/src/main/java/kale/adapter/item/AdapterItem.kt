@@ -1,9 +1,18 @@
 package kale.adapter.item
 
+import android.content.Context
 import android.support.annotation.LayoutRes
 import android.view.View
 
+/**
+ * [layout] 如果有返回值，将不再使用 layoutResId 解析布局
+ * [layoutResId] 布局 id， layout 和 layoutResId 必须实现其中之一
+ */
 interface AdapterItem<in T : Any> {
+
+  fun layout(context: Context): View? {
+    return null
+  }
 
   /**
    * @return item布局文件的layoutId
