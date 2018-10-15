@@ -1,6 +1,7 @@
-package kale.adapter
+package kale.commonadapter.item
 
 import android.view.View
+import kale.adapter.R
 import kale.adapter.item.Section
 import kale.adapter.item.SectionItem
 
@@ -23,6 +24,6 @@ class SpecificHeader : SectionItem<Any> {
 
   }
 
-  override fun handleSection(section: Section<Any>, position: Int) {
+  override fun handleSection(section: Section<Any>, sectionPosition: Int) {
   }
 }

@@ -1,8 +1,8 @@
 package kale.commonadapter.util;
 
-import android.databinding.ListChangeRegistry;
-import android.databinding.ObservableList;
-import android.support.annotation.NonNull;
+import androidx.databinding.ListChangeRegistry;
+import androidx.databinding.ObservableList;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.List;
  * @author Kale
  * @date 2016/2/21
  *
- * Fork from {@link android.databinding.ObservableArrayList}
+ * Fork from {@link androidx.databinding.ObservableArrayList}
  */
 public class ObservableArrayList<T> extends ArrayList<T> implements ObservableList<T> {
 

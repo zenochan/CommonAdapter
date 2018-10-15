@@ -31,16 +31,16 @@ public class DataManager {
             DemoModel model = new DemoModel();
             switch (type) {
                 case 0:
-                    model.type = "text";
-                    model.content = originList.get(i);
+                    model.setType("text");
+                    model.setContent(originList.get(i));
                     break;
                 case 1:
-                    model.type = "button";
-                    model.content = originList.get(i);
+                    model.setType("button");
+                    model.setContent(originList.get(i));
                     break;
                 case 2:
-                    model.type = "image";
-                    model.content = String.valueOf(R.drawable.kale);
+                    model.setType("image");
+                    model.setContent(String.valueOf(R.drawable.kale));
                     break;
                 default:
             }
@@ -48,7 +48,7 @@ public class DataManager {
         }
 
         for (int i = 0; i < list.size(); i++) {
-            Log.d("DataManager", "[" + i + "]" + list.get(i).content);
+            Log.d("DataManager", "[" + i + "]" + list.get(i).getContent());
         }
         return list;
     }

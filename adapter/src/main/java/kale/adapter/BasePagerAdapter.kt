@@ -2,13 +2,11 @@
 
 package kale.adapter
 
-import android.support.v4.util.ArrayMap
-import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
-
-import java.util.LinkedList
-import java.util.Queue
+import androidx.collection.ArrayMap
+import androidx.viewpager.widget.PagerAdapter
+import java.util.*
 
 
 /**

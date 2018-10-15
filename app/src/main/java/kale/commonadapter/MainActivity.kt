@@ -3,7 +3,7 @@ package kale.commonadapter
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import kotlin.reflect.KClass

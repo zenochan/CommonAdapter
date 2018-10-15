@@ -15,9 +15,8 @@
  */
 package kale.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-
+import androidx.recyclerview.widget.RecyclerView
 import kale.adapter.item.AdapterItem
 import kale.adapter.item.Section
 import kale.adapter.item.SectionItem
@@ -43,10 +42,13 @@ abstract class SectionedRcvAdapter<S : Section<Any>>
     registerAdapterDataObserver(SectionDataObserver())
   }
 
-  override fun setData(data: List<Section<*>>) {
-    super.setData(data)
-    setupIndices()
-  }
+
+  override var data: List<Section<*>>
+    get() = super.data
+    set(value) {
+      super.data = value
+      setupIndices()
+    }
 
   override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
     super.onAttachedToRecyclerView(recyclerView)

@@ -1,10 +1,9 @@
 package kale.adapter
 
 import android.graphics.*
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kale.adapter.item.Section
 
 /**
@@ -23,7 +22,7 @@ class SectionedCardDecoration
   val rectF = RectF()
 
 
-  override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+  override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
     super.getItemOffsets(outRect, view, parent, state)
     if ((parent.layoutManager as? GridLayoutManager)?.spanSizeLookup != null) {
       val lm: GridLayoutManager = parent.layoutManager as GridLayoutManager

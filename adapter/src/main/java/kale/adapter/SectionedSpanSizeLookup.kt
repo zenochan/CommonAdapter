@@ -15,7 +15,7 @@
  */
 package kale.adapter
 
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 
 /**
  * A SpanSizeLookup to draw section headers or footer spanning the whole width of the RecyclerView

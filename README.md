@@ -10,24 +10,20 @@ repositories{
 }
 
 dependencies{
-  compile "name.zeno:common-adapter:1.0.0"
+  compile "name.zeno:common-adapter:$version"
 }
 ```
+[version](https://github.com/zenochan/CommonAdapter/releases)
 
-#### LoadAdapterWrapper
-
-> 对分页列表UI的封装
-
-
-#### SectionedRcvAdapter
-
-> Section 分组显示适配
-
-#### CommonMDRcvAdapter
-
-> 适配 [material-dialogs](https://github.com/afollestad/material-dialogs)
+## FEATURES
+- [x] LoadAdapterWrapper: 对分页列表UI的封装
+- [x] SectionedRcvAdapter: Section 分组显示适配
 
 ## CHANGE LOG
+
+#### 2.0.1810150
+- 迁移至 AndroidX, 不再支持 support 系列
+- 移除 `CommonMDRcvAdapter`
 
 #### 1.0.1
 

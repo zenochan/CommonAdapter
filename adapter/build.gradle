@@ -8,7 +8,7 @@ mavenConf {
 
   groupId "name.zeno"
   artifactId "kt-common-adapter"
-  version "1.0.3.1806071"
+  version "2.0.1810150"
 
   repositoryUrl "file:///Users/zenochan/.m2/repository"
 //  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
@@ -16,16 +16,14 @@ mavenConf {
 confMaven()
 
 android {
-  compileSdkVersion 27
-  buildToolsVersion '27.0.3'
+  compileSdkVersion compile_sdk_version
+  buildToolsVersion build_tools_version
 
-  dataBinding {
-    enabled true
-  }
+  dataBinding { enabled true }
 
   defaultConfig {
     minSdkVersion 15
-    targetSdkVersion 27
+    targetSdkVersion target_sdk_version
     versionName mavenConf.version
   }
 
@@ -40,13 +38,10 @@ android {
 dependencies {
   testImplementation 'junit:junit:4.12'
 
-  compileOnly "com.android.databinding:baseLibrary:3.1.2"
-  compileOnly "com.android.support:recyclerview-v7:27.1.1"
-  compileOnly("com.afollestad.material-dialogs:core:0.9.5.0") {
-    exclude(group: 'com.android.support')
-  }
+  compileOnly "androidx.recyclerview:recyclerview:1.0.0"
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
 repositories {
   mavenCentral()
 }

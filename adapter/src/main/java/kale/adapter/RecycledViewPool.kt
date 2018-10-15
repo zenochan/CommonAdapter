@@ -1,8 +1,7 @@
 package kale.adapter
 
-import java.util.HashMap
-
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 /**
  * Author:    valuesfeng

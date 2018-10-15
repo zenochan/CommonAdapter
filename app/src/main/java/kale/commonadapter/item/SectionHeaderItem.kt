@@ -1,10 +1,11 @@
 package kale.commonadapter.item
 
+import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import kale.adapter.item.AdapterItem
-import kale.adapter.item.Section
-import kale.adapter.item.SectionItem
 
 /**
  * @author [陈治谋](mailto:zenochan@qq.com)
@@ -12,8 +13,13 @@ import kale.adapter.item.SectionItem
  */
 class SectionHeaderItem : AdapterItem<Any> {
 
-  override val layoutResId: Int
-    get() = android.R.layout.simple_list_item_1
+  override fun layout(context: Context, parent: ViewGroup): View? {
+    val view = TextView(context)
+    val lp = RecyclerView.LayoutParams(-1, 0)
+    lp.bottomMargin = 48
+    view.layoutParams = lp
+    return view
+  }
 
   private lateinit var textView: TextView
 

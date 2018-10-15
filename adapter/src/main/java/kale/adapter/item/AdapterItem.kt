@@ -1,8 +1,9 @@
 package kale.adapter.item
 
 import android.content.Context
-import android.support.annotation.LayoutRes
+import androidx.annotation.LayoutRes
 import android.view.View
+import android.view.ViewGroup
 
 /**
  * [layout] 如果有返回值，将不再使用 layoutResId 解析布局
@@ -10,7 +11,7 @@ import android.view.View
  */
 interface AdapterItem<in T : Any> {
 
-  fun layout(context: Context): View? {
+  fun layout(context: Context, parent: ViewGroup): View? {
     return null
   }
 
@@ -19,6 +20,7 @@ interface AdapterItem<in T : Any> {
    */
   @get:LayoutRes
   val layoutResId: Int
+    get() = -1
 
   /**
    * 初始化views
@@ -28,7 +30,7 @@ interface AdapterItem<in T : Any> {
   /**
    * 设置view的参数
    */
-  fun setViews()
+  fun setViews() {}
 
   /**
    * 根据数据来设置item的内部views

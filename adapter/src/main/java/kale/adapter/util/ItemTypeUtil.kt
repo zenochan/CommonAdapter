@@ -1,15 +1,14 @@
 package kale.adapter.util
 
-import java.util.HashMap
-
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
+import java.util.*
 
 /**
  * @author Jack Tony
  * @date 2015/8/29
  */
 @VisibleForTesting
-/*package*/ class ItemTypeUtil {
+class ItemTypeUtil {
 
   private var typePool: HashMap<Any, Int>? = null
 

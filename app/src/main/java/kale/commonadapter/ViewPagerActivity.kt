@@ -1,9 +1,8 @@
 package kale.commonadapter
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import kale.adapter.CommonPagerAdapter
 import kale.adapter.item.AdapterItem
 import kale.commonadapter.item.ButtonItem
@@ -45,7 +44,7 @@ class ViewPagerActivity : AppCompatActivity() {
         return t.type
       }
 
-      override fun createItem(type: Any): AdapterItem<*> {
+      override fun createItem(type: Any): AdapterItem<DemoModel> {
         when (type as String) {
           "text" -> return TextItem()
           "button" -> return ButtonItem()
@@ -66,7 +65,7 @@ class ViewPagerActivity : AppCompatActivity() {
         return t.type
       }
 
-      override fun createItem(type: Any): AdapterItem<*> {
+      override fun createItem(type: Any): AdapterItem<DemoModel> {
         when (type as String) {
           "text" -> return TextItem()
           "button" -> return ButtonItem()

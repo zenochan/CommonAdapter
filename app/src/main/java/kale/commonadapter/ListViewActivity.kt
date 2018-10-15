@@ -1,7 +1,7 @@
 package kale.commonadapter
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,7 +28,7 @@ class ListViewActivity : AppCompatActivity() {
 
   private var mListView: ListView? = null
 
-  private var mData: List<DemoModel>? = null
+  private var mData: List<DemoModel> = ArrayList()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -42,13 +42,13 @@ class ListViewActivity : AppCompatActivity() {
   /**
    * 多种类型的type
    */
-  private fun multiType(data: List<DemoModel>?): CommonAdapter<DemoModel> {
+  private fun multiType(data: List<DemoModel>): CommonAdapter<DemoModel> {
     return object : CommonAdapter<DemoModel>(data, 3) {
       override fun getItemType(t: DemoModel): Any {
         return t.type
       }
 
-      override fun createItem(type: Any): AdapterItem<*> {
+      override fun createItem(type: Any): AdapterItem<DemoModel> {
         when (type as String) {
           "text" -> return TextItem()
           "button" -> return ButtonItem()
@@ -62,10 +62,10 @@ class ListViewActivity : AppCompatActivity() {
   /**
    * 一种类型的type
    */
-  private fun singleType(data: List<DemoModel>?): CommonAdapter<DemoModel> {
+  private fun singleType(data: List<DemoModel>): CommonAdapter<DemoModel> {
     return object : CommonAdapter<DemoModel>(data, 1) {
 
-      override fun createItem(type: Any): AdapterItem<*> {
+      override fun createItem(type: Any): AdapterItem<DemoModel> {
         // 如果就一种，那么直接return一种类型的item即可。
         return TextItem()
       }
@@ -78,14 +78,14 @@ class ListViewActivity : AppCompatActivity() {
    *
    * 多种类型的type
    */
-  private fun convertedData(data: List<DemoModel>?): CommonAdapter<DemoModel> {
+  private fun convertedData(data: List<DemoModel>): CommonAdapter<DemoModel> {
     return object : CommonAdapter<DemoModel>(data, 3) {
 
       override fun getItemType(t: DemoModel): Any {
         return t.type
       }
 
-      override fun createItem(type: Any): AdapterItem<*> {
+      override fun createItem(type: Any): AdapterItem<DemoModel> {
         when (type as String) {
           "image", "text" -> return TextItem()
           "button" -> return ButtonItem()
@@ -95,14 +95,6 @@ class ListViewActivity : AppCompatActivity() {
             }
           })
         }
-      }
-
-      /**
-       * 做数据的转换，这里算是数据的精细拆分
-       */
-      override fun getConvertedData(data: DemoModel, type: Any?): Any {
-        // 这样可以允许item自身的数据和list数据不同，这里item接收DemoModel，数据也是DemoModel，所以直接返回了data
-        return data
       }
     }
   }

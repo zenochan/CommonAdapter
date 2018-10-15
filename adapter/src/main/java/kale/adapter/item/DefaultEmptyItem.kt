@@ -9,7 +9,7 @@ import kale.adapter.R
  * @author 陈治谋 (513500085@qq.com)
  * @since 2016/12/21.
  */
-class DefalutEmptyItem : AdapterItem<Any> {
+class DefaultEmptyItem : AdapterItem<Any> {
   override val layoutResId: Int
     get() = R.layout.item_empty_default
 

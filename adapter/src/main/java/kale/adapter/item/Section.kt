@@ -1,6 +1,6 @@
 package kale.adapter.item
 
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 
 /**
  * Create Date: 16/6/20

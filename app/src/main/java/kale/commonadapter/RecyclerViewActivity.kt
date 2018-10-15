@@ -1,12 +1,11 @@
 package kale.commonadapter
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kale.adapter.CommonRcvAdapter
 import kale.adapter.item.AdapterItem
 import kale.adapter.util.IAdapter
@@ -30,7 +29,7 @@ class RecyclerViewActivity : AppCompatActivity() {
     mRecyclerView = RecyclerView(this)
     LayoutUtil.setContentView(this, mRecyclerView!!)
 
-    val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     layoutManager.recycleChildrenOnDetach = true
     mRecyclerView!!.layoutManager = layoutManager
 
@@ -40,7 +39,7 @@ class RecyclerViewActivity : AppCompatActivity() {
     // 现在得到数据
     val data = DataManager.loadData(baseContext)
     (mRecyclerView!!.adapter as IAdapter<DemoModel>).data = data // 设置新的数据
-    mRecyclerView!!.adapter.notifyDataSetChanged() // 通知数据刷新
+    mRecyclerView!!.adapter!!.notifyDataSetChanged() // 通知数据刷新
 
     loadNewData(data)
   }
@@ -50,7 +49,7 @@ class RecyclerViewActivity : AppCompatActivity() {
       data.clear()
       data.addAll(DataManager.loadData(baseContext)) // 对data进行操作
 
-      mRecyclerView!!.adapter.notifyDataSetChanged() // 通知数据刷新
+      mRecyclerView!!.adapter!!.notifyDataSetChanged() // 通知数据刷新
 
       Toast.makeText(this@RecyclerViewActivity, "refresh completed", Toast.LENGTH_SHORT).show()
     }, 1000)
@@ -69,7 +68,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         return demoModel.type
       }
 
-      override fun createItem(type: Any): AdapterItem<*> {
+      override fun createItem(type: Any): AdapterItem<DemoModel> {
         Log.d(TAG, "createItem $type view")
         when (type as String) {
           "text" -> return TextItem()

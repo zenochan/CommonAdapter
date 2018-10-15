@@ -6,5 +6,5 @@ package kale.adapter.item
  * @author 陈治谋 (513500085@qq.com)
  */
 interface ItemCreator<in T : Any> {
-  fun create(t: T): AdapterItem<T>
+  fun create(t: T): AdapterItem<T>?
 }

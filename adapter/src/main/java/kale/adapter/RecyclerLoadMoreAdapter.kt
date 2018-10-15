@@ -1,7 +1,7 @@
 package kale.adapter
 
-import android.support.annotation.IntDef
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.IntDef
+import androidx.recyclerview.widget.RecyclerView
 
 
 /**
@@ -42,7 +42,7 @@ interface RecyclerLoadMoreAdapter {
   /** 切换为加载失败  */
   fun loadFailed()
 
-  fun onLoadMore(onLoadMore: Action0)
+  fun onLoadMore(onLoadMore: (() -> Unit)?)
 
   fun setupWithRcv(recyclerView: RecyclerView)
 

@@ -1,14 +1,14 @@
 package kale.commonadapter
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import kale.adapter.SectionedCardDecoration
 import kale.adapter.SectionedRcvAdapter
 import kale.adapter.SectionedSpanSizeLookup
-import kale.adapter.SpecificHeader
+import kale.commonadapter.item.SpecificHeader
 import kale.adapter.item.AdapterItem
 import kale.adapter.item.Section
 import kale.commonadapter.item.FullTextItem
