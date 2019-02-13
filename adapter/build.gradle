@@ -2,16 +2,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
-apply from: 'http://maven.mjtown.cn/maven.gradle'
+apply from: 'http://maven.izeno.cn/maven.gradle'
 mavenConf {
   projectName "CommonAdapter"
 
   groupId "name.zeno"
   artifactId "kt-common-adapter"
-  version "2.0.1810150"
+  version "2.0.1902130"
 
-  repositoryUrl "file:///Users/zenochan/.m2/repository"
-//  repositoryUrl "scp://root@mjtown.cn/root/nginx/maven"
+//  repositoryUrl "file:///Users/zenochan/.m2/repository"
+  repositoryUrl "scp://root@izeno.cn/root/nginx/maven"
 }
 confMaven()
 
@@ -38,10 +38,11 @@ android {
 dependencies {
   testImplementation 'junit:junit:4.12'
 
-  compileOnly "androidx.recyclerview:recyclerview:1.0.0"
+  api "androidx.recyclerview:recyclerview:1.0.0"
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 repositories {
   mavenCentral()
+  google()
 }
